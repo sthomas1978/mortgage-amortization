@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { SharedStateProvider } from './SharedStateExample';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <SharedStateProvider>
+      <App />
+    </SharedStateProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
