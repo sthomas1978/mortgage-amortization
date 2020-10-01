@@ -1,70 +1,85 @@
-import React, { useState } from 'react'
+import React, { useState, ChangeEvent, FormEvent } from 'react'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 
-function validate({loan, period, rate}) {
+type ValidationResult = {
+    loan: boolean,
+    period: boolean,
+    rate: boolean
+}
+
+interface ParametersProps {
+    calculateAmortization: (loan: number, period: number, rate: number) => void
+}
+
+function validate(loan: string, period: string, rate: string): ValidationResult {
     return {
-        loan: loan.length === 0 || isNaN(loan),
-        period: period.length === 0 || isNaN(period),
-        rate: rate.length ===0 || isNaN(rate)
+        loan: loan.length === 0 || isNaN(Number(loan)),
+        period: period.length === 0 || isNaN(Number(period)),
+        rate: rate.length === 0 || isNaN(Number(rate))
     }
 }
 
-
-const Parameters = (props) => {
+const Parameters = (props: ParametersProps) => {
     const [loan, setLoan] = useState('')
     const [period, setPeriod] = useState('')
     const [rate, setRate] = useState('')
-    const [touched, setTouched] = useState({loan: false, period: false, rate: false})
+    const [touched, setTouched] = useState({ loan: false, period: false, rate: false })
 
-    const handleLoanChange = (e) => {
-        setLoan(e.target.value)
+    const handleLoanChange = (evt: ChangeEvent<HTMLInputElement>) => {
+        setLoan(evt.target.value)
     }
 
-    const handlePeriodChange = (e) => {
-        setPeriod(e.target.value)
+    const handlePeriodChange = (evt: ChangeEvent<HTMLInputElement>) => {
+        setPeriod(evt.target.value)
     }
 
-    const handleRateChange = (e) => {
-        setRate(e.target.value)
+    const handleRateChange = (evt: ChangeEvent<HTMLInputElement>) => {
+        setRate(evt.target.value)
     }
 
-    const handleBlur = (field) => (e) => {
-        setTouched({...touched, [field]: true})
-    } 
+    const handleBlur = (field: string) => (evt: ChangeEvent<HTMLInputElement>) => {
+        setTouched({ ...touched, [field]: true })
+    }
 
     const canBeSubmitted = () => {
-        const errors = validate({loan, period, rate})
+        const errors = validate(loan, period, rate)
+        // @ts-ignore
         const isDisabled = Object.keys(errors).some(x => errors[x])
 
         return !isDisabled
     }
 
-    const onSubmit = (e) => {
-        e.preventDefault()
+    const onSubmit = (evt: FormEvent) => {
+        evt.preventDefault()
 
         if (!canBeSubmitted()) {
             return
         }
 
-        props.calculateAmortization(loan, period, rate)
+        props.calculateAmortization(Number(loan), Number(period), Number(rate))
     }
 
-    const errors = validate({loan, period, rate})
-        
-    const shouldMarkError = (field) => {
+    const errors = validate(loan, period, rate)
+
+    const shouldMarkError = (field: string) => {
+        // @ts-ignore
         const hasError = errors[field]
+        // @ts-ignore
         const shouldShow = touched[field]
 
         return hasError ? shouldShow : false
     }
 
-    const shouldMarkSuccess = (field) => {
+    const shouldMarkSuccess = (field: string) => {
+        // @ts-ignore
         const hasSuccess = !errors[field]
+        // @ts-ignore
         const shouldShow = touched[field]
 
-        return hasSuccess ? shouldShow: false
-    }    
+        return hasSuccess ? shouldShow : false
+    }
 
+    // @ts-ignore
     const isDisabled = Object.keys(errors).some(x => errors[x])
 
     return (
@@ -92,11 +107,11 @@ const Parameters = (props) => {
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row}>
-                    <Col sm={{span:3, offset: 1}}>
-                        <Button type="submit" variant={isDisabled ? 'warning' : 'success'} disable={isDisabled.toString()}>Calculate</Button>
+                    <Col sm={{ span: 3, offset: 1 }}>
+                        <Button type="submit" variant={isDisabled ? 'warning' : 'success'} disabled={isDisabled}>Calculate</Button>
                     </Col>
                 </Form.Group>
-            </Form>    
+            </Form>
         </div>
     )
 }
