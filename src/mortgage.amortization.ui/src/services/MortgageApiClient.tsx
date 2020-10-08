@@ -29,7 +29,9 @@ export class MortgageApi extends Api {
 
     public async calculateAmortization(parameters: CalculateAmortizationRequest): Promise<CalculateAmortizationResponse> {
         const response = await this.post<string, CalculateAmortizationRequest, AxiosResponse<CalculateAmortizationResponse>>(
-            'api/calculate', parameters)
+            '/api/calculate', parameters)
+
+        //console.log(response)
         const { data } = response
         const result: CalculateAmortizationResponse = {
             loan: data.loan,

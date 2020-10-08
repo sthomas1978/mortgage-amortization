@@ -9,6 +9,7 @@
     "@types/node": "^14.11.2",
     "@types/react": "^16.9.49",
     "@types/react-dom": "^16.9.8",
+    "axios": "^0.20.0",
     "bootstrap": "^4.5.2",
     "d3": "^6.1.1",
     "react": "^16.13.1",
@@ -39,6 +40,7 @@
     ]
   },
   "devDependencies": {
+    "@pact-foundation/pact": "^9.12.2",
     "@types/enzyme": "^3.10.7",
     "@types/jest": "^26.0.14",
     "enzyme": "^3.11.0",
