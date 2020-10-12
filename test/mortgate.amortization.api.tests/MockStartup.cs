@@ -1,15 +1,17 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using mortgage.amortization.api;
 using mortgage.amortization.api.Api.Amortization;
+using mortgate.amortization.api.tests.Api.Amortization;
 
-namespace mortgage.amortization.api
+namespace mortgate.amortization.api.tests
 {
-    public class Startup
+    class MockStartup
     {
-        public Startup(IConfiguration configuration)
+        public MockStartup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
@@ -19,8 +21,9 @@ namespace mortgage.amortization.api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IAmortizationHandler, AmortizationHandler>();
+            services.AddTransient<IAmortizationHandler, MockAmortizationHandler>();
 
+            services.AddMvc().AddApplicationPart(typeof(Startup).Assembly);
             services.AddControllers();
         }
 

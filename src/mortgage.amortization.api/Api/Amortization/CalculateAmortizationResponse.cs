@@ -1,12 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace mortgage.amortization.api.Api.Amortization
 {
     public class CalculateAmortizationResponse
     {
-        public decimal Loan { get; }
-        public int Period { get; }
-        public decimal Rate { get; }
-        IEnumerable<AmortizationLine> Amortization { get; }
+        [JsonPropertyName("loan")]
+        public decimal Loan { get; set; }
+        [JsonPropertyName("period")]
+        public decimal Period { get; set; }
+        [JsonPropertyName("rate")]
+        public decimal Rate { get; set; }
+        [JsonPropertyName("amortization")]
+        public IEnumerable<AmortizationLine> Amortization { get; set; }
     }
 }

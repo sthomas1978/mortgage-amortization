@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace mortgage.amortization.api.Api.Amortization
@@ -16,10 +17,15 @@ namespace mortgage.amortization.api.Api.Amortization
         }
 
         [HttpPost]
-        public async Task<CalculateAmortizationResponse> Calculate(
-            CalculateAmortizationRequest request)
+        public async Task<CalculateAmortizationResponse> Calculate(CalculateAmortizationRequest request)
         {
             return await _handler.Calculate(request);
+        }
+
+        [HttpGet]
+        public async Task<string> Get()
+        {
+            return await Task.FromResult("hello");
         }
     }
 }
