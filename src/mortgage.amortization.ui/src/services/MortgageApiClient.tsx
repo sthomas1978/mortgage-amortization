@@ -29,7 +29,7 @@ export class MortgageApi extends Api {
 
     public async calculateAmortization(parameters: CalculateAmortizationRequest): Promise<CalculateAmortizationResponse> {
         const response = await this.post<string, CalculateAmortizationRequest, AxiosResponse<CalculateAmortizationResponse>>(
-            '/api/calculate', parameters)
+            'api/amortization', parameters)
 
         //console.log(response)
         const { data } = response
@@ -40,6 +40,13 @@ export class MortgageApi extends Api {
             amortization: data.amortization
         }
         return result
+    }
+
+    public async Hello(): Promise<string>{
+        const response = await this.get<string>('api/amortization')
+        const { data } = response
+
+        return data
     }
 
 }
