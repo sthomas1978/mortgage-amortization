@@ -9,9 +9,16 @@ namespace mortgage.amortization.api.Api.Amortization
 
     public class AmortizationHandler : IAmortizationHandler
     {
+        private readonly IMortgageCalculator _calculator;
+
+        public AmortizationHandler(IMortgageCalculator calculator)
+        {
+            _calculator = calculator;
+        }
+
         public async Task<CalculateAmortizationResponse> Calculate(CalculateAmortizationRequest request)
         {
-            return await Task.FromResult(new CalculateAmortizationResponse());
+            return await Task.FromResult(_calculator.Calculate(request));
         }
     }
 }

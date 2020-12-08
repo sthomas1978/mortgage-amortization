@@ -1,5 +1,6 @@
 import { Api } from '../utils/api'
-import { AxiosRequestConfig, AxiosResponse } from 'axios'
+import { AxiosResponse } from 'axios'
+import { apiConfig } from '../utils/api.config'
 
 export type CalculateAmortizationRequest = {
     loan: number,
@@ -9,7 +10,7 @@ export type CalculateAmortizationRequest = {
 
 export type AmortizationLine = {
     period: number,
-    principle: number,
+    principal: number,
     interest: number,
     payment: number,
     balance: number
@@ -23,15 +24,12 @@ export type CalculateAmortizationResponse = {
 }
 
 export class MortgageApi extends Api {
-    constructor(config?: AxiosRequestConfig) {
-        super(config)
-    }
+
 
     public async calculateAmortization(parameters: CalculateAmortizationRequest): Promise<CalculateAmortizationResponse> {
         const response = await this.post<string, CalculateAmortizationRequest, AxiosResponse<CalculateAmortizationResponse>>(
             'api/amortization', parameters)
 
-        //console.log(response)
         const { data } = response
         const result: CalculateAmortizationResponse = {
             loan: data.loan,
@@ -51,4 +49,4 @@ export class MortgageApi extends Api {
 
 }
 
-export const mortgageApi = new MortgageApi()
+export const mortgageApi = new MortgageApi(apiConfig)

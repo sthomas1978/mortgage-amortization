@@ -1,15 +1,36 @@
+import { CalculateAmortizationResponse } from "./services/MortgageApiClient";
+
 export enum ActionType {
     LoanChanged,
     PeriodChanged,
     RateChanged,
     LoanTouched,
     PeriodTouched,
-    RateTouched
+    RateTouched,
+    CalculationInProgress,
+    CalculationCompleted,
+    CalculationError
+}
+
+export const startCalculation = (): Action => ({
+    type: ActionType.CalculationInProgress,
+    payload: ''
+});
+
+export const completeCalculation = (resp: CalculateAmortizationResponse): Action => ({
+    type: ActionType.CalculationCompleted,
+    payload: resp
+});
+
+export enum CalculationState {
+    InProgress,
+    Completed,
+    Errored
 }
 
 export type Action = {
     type: ActionType
-    payload: string
+    payload: any
 }
 
 export type State = {
@@ -25,7 +46,9 @@ export type State = {
         loan:boolean,
         period:boolean,
         rate:boolean
-    }
+    },
+    calculationState: CalculationState,
+    result: CalculateAmortizationResponse
 }
 
 export const initialState = {
@@ -41,6 +64,13 @@ export const initialState = {
         loan: false,
         period: false,
         rate: false
+    },
+    calculationState: CalculationState.Completed,
+    result: {
+        loan: 0,
+        period: 0,
+        rate: 0,
+        amortization: []
     }
 }
 
@@ -78,5 +108,12 @@ export const reducer = (state: State = initialState, action: Action): State => {
             newState.touched.period = true
             return newState;
         };
+        case ActionType.CalculationCompleted: {
+            console.log(action);
+            let newState = {...state, result: action.payload }
+            return newState;
+        }
+        default:
+            return state;
     }
 }

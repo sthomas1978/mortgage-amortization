@@ -1,19 +1,11 @@
-import React, { ChangeEvent, FormEvent, useReducer } from 'react'
+import React, { ChangeEvent, FormEvent, useContext } from 'react'
+import {Context} from './Provider'
 import { Form, Button, Row, Col } from 'react-bootstrap'
-import { reducer, initialState, ActionType } from './AmortizationReducer'
+import { ActionType } from './AmortizationReducer'
 
-type ValidationResult = {
-    loan: boolean,
-    period: boolean,
-    rate: boolean
-}
 
-interface ParametersProps {
-    calculateAmortization: (loan: number, period: number, rate: number) => void
-}
-
-const Parameters = (props: ParametersProps) => {
-    const [state, dispatch] = useReducer(reducer, initialState)
+const Parameters = () => {
+    const {state, dispatch, calculateAmortization} = useContext(Context)
 
     const handleLoanChange = (evt: ChangeEvent<HTMLInputElement>) => {
         dispatch({
@@ -66,7 +58,10 @@ const Parameters = (props: ParametersProps) => {
             return
         }
 
-        props.calculateAmortization(Number(state.loan), Number(state.period), Number(state.rate))
+        calculateAmortization({
+            loan: Number(state.loan),
+            period: Number(state.period),
+            rate: Number(state.rate)});
     }
 
     return (

@@ -9,6 +9,8 @@ namespace mortgage.amortization.api
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -20,6 +22,16 @@ namespace mortgage.amortization.api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IAmortizationHandler, AmortizationHandler>();
+            services.AddTransient<IMortgageCalculator, MortgateCalculator>();
+
+            services.AddCors(options =>
+             {
+                 options.AddPolicy("AllowOrigin", options => options
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
+             });
+
 
             services.AddControllers();
         }
@@ -27,6 +39,8 @@ namespace mortgage.amortization.api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors("AllowOrigin");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

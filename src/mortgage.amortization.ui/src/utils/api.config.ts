@@ -5,14 +5,11 @@ export const API_BASE_URL = 'http://localhost:3000/'
 
 export const apiConfig = {
     returnRejectedPromiseOnError: true,
-    withCredentials: true,
+    withCredentials: false,
     timeout: 30000,
-    baseURL: "http://localhost:3000/",
+    baseURL: "http://localhost:5000/",
     headers: {
         common: {
-            "Cache-Control": "no-cache, no-store, must-revalidate",
-            Pragma: "no-cache",
-            "Content-Type": "application/json",
             Accept: "application/json",
         },
     },

@@ -1,19 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Table } from 'react-bootstrap'
 import { DataItem } from './amortizationEngine'
+import { Context } from './Provider'
 
-type BreakdownProps = {
-    data: Array<DataItem>
-}
+const Breakdown = () => {
+    const {state} = useContext(Context);
 
-const Breakdown = (props: BreakdownProps) => {
     return (
         <div>
             <Table striped hover size="sm">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Principle</th>
+                        <th>Principal</th>
                         <th>Interest</th>
                         <th>Payment</th>
                         <th>Remaining Balance</th>
@@ -21,10 +20,10 @@ const Breakdown = (props: BreakdownProps) => {
                 </thead>
                 <tbody>
                     {
-                        props.data.map((item) =>
+                        state.result.amortization.map((item) =>
                             <tr key={item.period}>
                                 <td>{item.period}</td>
-                                <td>{item.principle.toFixed(2)}</td>
+                                <td>{item.principal.toFixed(2)}</td>
                                 <td>{item.interest.toFixed(2)}</td>
                                 <td>{item.payment.toFixed(2)}</td>
                                 <td>{item.balance.toFixed(2)}</td>
