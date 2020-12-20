@@ -6,7 +6,7 @@ using System.Net;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace mortgate.amortization.api.tests
+namespace Mortgage.Api.Tests
 {
     public class APIIntegrationTests
     {
@@ -45,7 +45,7 @@ namespace mortgate.amortization.api.tests
             pactVerifier
                 .ServiceProvider("Mortgage API", "http://localhost:5000")
                 .HonoursPactWith("Mortgage UI")
-                .PactUri(@"C:\repos\mortgage-amortization\src\mortgage.amortization.ui\pacts\mortgage_ui-mortgage_api.json")
+                .PactUri(@"C:\repos\mortgage-amortization\src\Mortgage.UI\pacts\mortgage_ui-mortgage_api.json")
                 .Verify();
         }
     }

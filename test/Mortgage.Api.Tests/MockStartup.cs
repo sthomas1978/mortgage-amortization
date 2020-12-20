@@ -1,17 +1,16 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using mortgage.amortization.api.Api.Amortization;
+using Mortgage.Api.Amortization;
+using Mortgage.Api.Tests.Amortization;
 
-namespace mortgage.amortization.api
+namespace Mortgage.Api.Tests
 {
-    public class Startup
+    class MockStartup
     {
-        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
-        public Startup(IConfiguration configuration)
+        public MockStartup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
@@ -21,26 +20,15 @@ namespace mortgage.amortization.api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IAmortizationHandler, AmortizationHandler>();
-            services.AddTransient<IMortgageCalculator, MortgateCalculator>();
+            services.AddTransient<IAmortizationHandler, MockAmortizationHandler>();
 
-            services.AddCors(options =>
-             {
-                 options.AddPolicy("AllowOrigin", options => options
-                    .AllowAnyOrigin()
-                    .AllowAnyHeader()
-                    .AllowAnyMethod());
-             });
-
-
+            services.AddMvc().AddApplicationPart(typeof(Startup).Assembly);
             services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseCors("AllowOrigin");
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

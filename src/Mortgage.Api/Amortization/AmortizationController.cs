@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace mortgage.amortization.api.Api.Amortization
+namespace Mortgage.Api.Amortization
 {
     [Route("api/[controller]")]
     [ApiController]

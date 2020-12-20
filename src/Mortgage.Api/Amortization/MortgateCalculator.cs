@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace mortgage.amortization.api.Api.Amortization
+namespace Mortgage.Api.Amortization
 {
     public interface IMortgageCalculator
     {

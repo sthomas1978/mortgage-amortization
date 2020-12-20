@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace mortgage.amortization.api.Api.Amortization
+namespace Mortgage.Api.Amortization
 {
     public interface IAmortizationHandler
     {

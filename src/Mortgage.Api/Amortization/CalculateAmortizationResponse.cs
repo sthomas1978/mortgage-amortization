@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace mortgage.amortization.api.Api.Amortization
+namespace Mortgage.Api.Amortization
 {
     public class CalculateAmortizationResponse
     {

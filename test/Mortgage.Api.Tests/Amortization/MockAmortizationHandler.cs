@@ -1,9 +1,9 @@
-﻿using mortgage.amortization.api.Api.Amortization;
+﻿using Mortgage.Api.Amortization;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace mortgate.amortization.api.tests.Api.Amortization
+namespace Mortgage.Api.Tests.Amortization
 {
     public class MockAmortizationHandler : IAmortizationHandler
     {
