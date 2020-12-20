@@ -7,16 +7,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1.404-buster AS build
 WORKDIR /src
-COPY ["mortgage.amortization.api/mortgage.amortization.api.csproj", "mortgage.amortization.api/"]
-RUN dotnet restore "mortgage.amortization.api/mortgage.amortization.api.csproj"
+COPY ["Mortgage.Api/Mortgage.Api.csproj", "Mortgage.Api/"]
+RUN dotnet restore "Mortgage.Api/Mortgage.Api.csproj"
 COPY . .
-WORKDIR "/src/mortgage.amortization.api"
-RUN dotnet build "mortgage.amortization.api.csproj" -c Release -o /app/build
+WORKDIR "/src/Mortgage.Api"
+RUN dotnet build "Mortgage.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "mortgage.amortization.api.csproj" -c Release -o /app/publish
+RUN dotnet publish "Mortgage.Api.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "mortgage.amortization.api.dll"]
+ENTRYPOINT ["dotnet", "Mortgage.Api.dll"]

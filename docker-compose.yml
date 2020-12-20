@@ -3,13 +3,13 @@ version: "3.9"
 services:
   webapp:
     build:
-      context: ./src/mortgage.amortization.ui/
+      context: ./src/Mortgage.UI/
       dockerfile: Dockerfile
     ports:
       - "3000:80"
   api:
     build:
       context: ./src
-      dockerfile: mortgage.amortization.api/Dockerfile
+      dockerfile: Mortgage.Api/Dockerfile
     ports:
       - "5000:80"

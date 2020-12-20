@@ -24,7 +24,7 @@ stages:
       displayName: Build an image
       inputs:
         command: build
-        dockerfile: '$(Build.SourcesDirectory)/src/mortgage.amortization.api/Dockerfile'
+        dockerfile: '$(Build.SourcesDirectory)/src/Mortgage.Api/Dockerfile'
         buildContext: '$(Build.SourcesDirectory)/src'
         tags: |
           $(tag)
