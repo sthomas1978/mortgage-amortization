@@ -1,15 +1,17 @@
 import React from 'react'
-import Parameters from './Parameters'
-import Breakdown from './BreakDown'
 import './App.css';
+import NavigationRouting from "./NavigationRouting"
+
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { BrowserRouter } from 'react-router-dom';
+import NavigationBar from './NavigationBar';
 
 const App = () => {
   return (
-    <div className="App">
-      <Parameters />
-      <Breakdown />
-    </div>)
+      <BrowserRouter>
+        <NavigationBar />
+        <NavigationRouting />
+      </BrowserRouter>)
 }
 
 export default App;

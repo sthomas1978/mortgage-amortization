@@ -1,4 +1,4 @@
-import { CalculateAmortizationResponse } from "./services/MortgageApiClient";
+import { CalculateAmortizationResponse } from "./MortgageApiClient";
 
 export enum ActionType {
     LoanChanged,

@@ -1,6 +1,6 @@
 import React, { useReducer} from "react"
 import { reducer, initialState, startCalculation, completeCalculation, State, Action } from './AmortizationReducer'
-import { CalculateAmortizationRequest, mortgageApi } from "./services/MortgageApiClient";
+import { CalculateAmortizationRequest, mortgageApi } from "./MortgageApiClient";
 
 interface IContext {
     state: State,

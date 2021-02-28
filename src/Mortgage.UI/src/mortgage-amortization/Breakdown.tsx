@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { Table } from 'react-bootstrap'
-import { DataItem } from './amortizationEngine'
 import { Context } from './Provider'
 
 const Breakdown = () => {
